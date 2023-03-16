@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Defend Intelligence</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-image: url("background.jpg");
+			background-size: cover;
+			background-position: center;
+			font-family: sans-serif;
+			color: white;
+			text-align: center;
+		}
+
+		canvas {
+			display: block;
+			margin: 0 auto;
+			border: 2px solid white;
+			border-radius: 10px;
+		}
+
+		#score {
+			position: absolute;
+			top: 10px;
+			left: 10px;
+			font-size: 36px;
+		}
+
+		#restart-button {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			font-size: 24px;
+			padding: 10px 20px;
+			background-color: white;
+			color: black;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<h1>Defend Intelligence</h1>
+	<canvas id="game-canvas" width="800" height="600"></canvas>
+	<div id="score">Score: 0</div>
+	<button id="restart-button">Restart</button>
+
+	<script src="game.js"></script>
+	<script>
+		const canvas = document.getElementById("game-canvas");
+		const game = new Game(canvas);
+		
+		document.getElementById("restart-button").addEventListener("click", () => {
+			game.restart();
+		});
+
+		canvas.addEventListener("click", (event) => {
+			let rect = canvas.getBoundingClientRect();
+			let x = event.clientX - rect.left;
+			let y = event.clientY - rect.top;
+			game.throwBrain(x, y);
+		});
+	</script>
+</body>
+</html>
